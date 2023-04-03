@@ -1,0 +1,24 @@
+{
+  "name": "nosql-social-api",
+  "version": "1.0.0",
+  "description": "Back-end for API",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jeremiahdorvil/NoSQL-Social-API.git"
+  },
+  "author": "Jeremiah Dorvil",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jeremiahdorvil/NoSQL-Social-API/issues"
+  },
+  "homepage": "https://github.com/jeremiahdorvil/NoSQL-Social-API#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "luxon": "^3.3.0",
+    "mongoose": "^7.0.3"
+  }
+}
