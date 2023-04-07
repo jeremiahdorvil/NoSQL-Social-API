@@ -1,7 +1,7 @@
-const { Thought, User } = require('../models');
+const { Thought, User } = require('../models/index');
 
 module.exports = {
-  // Get all courses
+  // Get all thoughts
   getThoughts(req, res) {
     Thought.find()
       .then((thoughts) => res.json(thoughts))
@@ -27,15 +27,18 @@ module.exports = {
         return res.status(500).json(err);
       });
   },
-  // Delete a thought
+  // Delete a thought and remove from the user
   deleteThought(req, res) {
-    Thought.findOneAndDelete({ _id: req.params.courseId })
+    Thought.findOneAndRemove({ _id: req.params.thoughtId })
       .then((thought) =>
         !thought
-          ? res.status(404).json({ message: 'No thought with that ID' })
-          : Student.deleteMany({ _id: { $in: thought.students } })
+          ? res.status(404).json({ message: 'No such thoughts exist' })
+          : User.findOneAndUpdate(
+            { thoughts: req.params.thoughtId },
+              { $pull: { thoughts: req.params.thoughtId } },
+              { new: true })
       )
-      .then(() => res.json({ message: 'Thought and students deleted!' }))
+      .then(() => res.json({ message: 'Thoughts successfully deleted!' }))
       .catch((err) => res.status(500).json(err));
   },
   // Update a thought

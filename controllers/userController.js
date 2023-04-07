@@ -1,5 +1,5 @@
 const { ObjectId } = require("mongoose").Types;
-const { User, Thought } = require("../models");
+const { User, Thought } = require("../models/index");
 
 module.exports = {
   // Get all users
@@ -56,22 +56,18 @@ module.exports = {
 
   // Delete a user and remove them from the thought
   deleteUser(req, res) {
-    User.findOneAndRemove({ _id: req.params.userId })
+    User.findOneAndDelete({ _id: req.params.userId })
       .then((user) =>
         !user
           ? res.status(404).json({ message: "No such user exists" })
-          : Thought.findOneAndUpdate(
-              { users: req.params.userId },
-              { $pull: { users: req.params.userId } },
-              { new: true }
-            )
+          : Thought.deleteMany({ _id: { $in: thoughts.user}})
       )
       .then((thought) =>
         !thought
           ? res.status(404).json({
               message: "User deleted, but no thoughts found",
             })
-          : res.json({ message: "User successfully deleted" })
+          : res.json({ message: "User and associated thoughts successfully deleted" })
       )
       .catch((err) => {
         console.log(err);
@@ -81,10 +77,10 @@ module.exports = {
 
   // Add an friend to a user
   addFriend(req, res) {
-    console.log("You are adding a Friend!");
-    console.log(req.body);
+    // console.log("You are adding a Friend!");
+    // console.log(req.body);
     User.findOneAndUpdate(
-      { _id: req.params.userId },
+      { _id: req.params.friendId },
       { $addToSet: { friends: req.body } },
       { runValidators: true, new: true }
     )
@@ -98,7 +94,7 @@ module.exports = {
   // Remove friend from a user
   removeFriend(req, res) {
     User.findOneAndUpdate(
-      { _id: req.params.userId },
+      { _id: req.params.friendId },
       { $pull: { friends: { friendId: req.params.friendId } } },
       { runValidators: true, new: true }
     )

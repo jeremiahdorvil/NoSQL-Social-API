@@ -5,18 +5,18 @@ const reactionSchema = require('./Reaction');
 const thoughtSchema = new Schema(
   {
     thoughtText: {
-      type: string,
+      type: String,
       required: true,
       minLength: 1,
       maxLength: 280,
     },
     createdAt: {
-      type: DateTime,
+      type: Date,
       default: DateTime.now(),
       get: dt => dt.toLocaleString(),
     },
     username: {
-        type: string,
+        type: String,
         required: true,
     },
     reactions: [reactionSchema],
