@@ -6,11 +6,11 @@ module.exports = {
   getUsers(req, res) {
     User.find()
       .then(async (users) => {
-        const studentObj = {
+        const userObj = {
           users,
-          headCount: await headCount(),
+          headCount: await ([users.length]),
         };
-        return res.json(studentObj);
+        return res.json(userObj);
       })
       .catch((err) => {
         console.log(err);
@@ -54,7 +54,7 @@ module.exports = {
       .catch((err) => res.status(500).json(err));
   },
 
-  // Delete a user and remove them from the thought
+  // Delete a user and remove their associated thoughts
   deleteUser(req, res) {
     User.findOneAndDelete({ _id: req.params.userId })
       .then((user) =>

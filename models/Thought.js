@@ -30,7 +30,7 @@ const thoughtSchema = new Schema(
   }
 );
 
-// Create a virtual property `friendCount` that gets the length of friends per user
+// Create a virtual property `reactionCount` that gets the length of reactions per thoughts
 thoughtSchema.virtual('reactionCount').get(function () {
     return this.reactions.length;
   });
