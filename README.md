@@ -16,7 +16,7 @@ When you open your command cli and start up MongoDB by entering `mongod` into th
 ## Links
 
 Link to my recorded walkthrough: 
-` `
+` https://drive.google.com/file/d/1UOJ85Fk0IKsM7k9E_YWCiOloApkg1L2P/view `
 
 Link to my GitHub Repo: 
 ` https://github.com/jeremiahdorvil/NoSQL-Social-API.git `
